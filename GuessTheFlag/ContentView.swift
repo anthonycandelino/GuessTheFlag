@@ -7,10 +7,9 @@
 import SwiftUI
 
 struct FlagImage: View {
-    var flagIndex: Int
-    var countries: [String]
+    var image: String
     var body: some View {
-        Image(countries[flagIndex]).clipShape(.capsule).shadow(radius: 5)
+        Image(image).clipShape(.capsule).shadow(radius: 5)
     }
 }
 
@@ -44,7 +43,7 @@ struct ContentView: View {
                         Button {
                             flagTapped(number)
                         } label: {
-                            FlagImage(flagIndex: number, countries: countries)
+                            FlagImage(image: countries[number])
                         }
                     }
                 }.frame(maxWidth: .infinity)
