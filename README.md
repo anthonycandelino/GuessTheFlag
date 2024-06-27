@@ -11,7 +11,7 @@ At the end of 8 rounds the user is prompted with alert containing their final sc
   <img alt="End of game alert" src="https://github.com/anthonycandelino/GuessTheFlag/assets/32252982/d28c5b02-a8db-44b5-9d70-010ea2a807a9" width="200" />
 </p>
 
-App was created as part of **100 Days of SwiftUI** Course using SwiftUI features such as _@State, color gradients, and alerts_
+App was created as part of **100 Days of SwiftUI** Course using SwiftUI features such as _@State, transitions and animations, color gradients, and alerts_
 
 ￼
 
