@@ -22,6 +22,7 @@ struct ContentView: View {
     @State private var userScore = 0
     @State private var selectedFlagNumber = 0
     @State private var questionRound = 0
+    @State private var flagSelected = false
     
     var body: some View {
         ZStack {
@@ -44,7 +45,9 @@ struct ContentView: View {
                             flagTapped(number)
                         } label: {
                             FlagImage(image: countries[number])
-                        }
+                        }.rotation3DEffect(
+                            .degrees(flagSelected && number == correctAnswer ? 360 : 0.0), axis: (x: 0.0, y: 1.0, z: 0.0)
+                        ).opacity(flagSelected && number != correctAnswer ? 0.25 : 1)
                     }
                 }.frame(maxWidth: .infinity)
                     .padding(.vertical, 20)
@@ -73,14 +76,23 @@ struct ContentView: View {
         scoreTitle = number == correctAnswer ? "Correct!" : "Wrong"
         userScore = number == correctAnswer ? userScore + 1 : userScore
         questionRound += 1
-        if (questionRound != 8) {
-            showingScore = true
-        } else {
-            showingFinalScore = true
+        withAnimation(.linear) {
+            flagSelected.toggle()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            if (questionRound != 8) {
+                showingScore = true
+            } else {
+                showingFinalScore = true
+            }
         }
     }
     
     func askQuestion() {
+        withAnimation(.linear) {
+            flagSelected = false
+        }
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
     }
