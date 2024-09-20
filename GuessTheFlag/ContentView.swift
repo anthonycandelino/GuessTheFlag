@@ -24,6 +24,20 @@ struct ContentView: View {
     @State private var questionRound = 0
     @State private var flagSelected = false
     
+    let labels: [String: String] = [
+        "Estonia": "Flag with three horizontal stripes. Top stripe blue, middle stripe black, bottom stripe white",
+        "France": "Flag with three vertical stripes. Left stripe blue, middle stripe white, right stripe red",
+        "Germany": "Flag with three horizontal stripes. Top stripe black, middle stripe red, bottom stripe gold",
+        "Ireland": "Flag with three vertical stripes. Left stripe green, middle stripe white, right stripe orange",
+        "Italy": "Flag with three vertical stripes. Left stripe green, middle stripe white, right stripe red",
+        "Nigeria": "Flag with three vertical stripes. Left stripe green, middle stripe white, right stripe green",
+        "Poland": "Flag with 2 horizontal stripes. Top stripe white, bottom stripe red",
+        "Spain": "Flag with three horizontal stripes. Top thin stripe red, middle thick stripe gold with crest on left, bottom thin stripe red",
+        "UK": "Flag with overlapping red and white crosses, both straight and diagonally, on a blue background",
+        "Ukraine": "Flag with 2 horizontal stripes. Top stripe blue, bottom stripe yellow",
+        "US": "Flag with many red and white horizonal stripes, with white stars on a blue background in the top-left corner"
+    ]
+    
     var body: some View {
         ZStack {
             LinearGradient(colors: [.blue, .pink], startPoint: .top, endPoint: .bottom)
@@ -48,6 +62,8 @@ struct ContentView: View {
                         }.rotation3DEffect(
                             .degrees(flagSelected && number == correctAnswer ? 360 : 0.0), axis: (x: 0.0, y: 1.0, z: 0.0)
                         ).opacity(flagSelected && number != correctAnswer ? 0.25 : 1)
+                            .accessibilityLabel(getFlagAccessibilityLabel(countries[number]))
+                        
                     }
                 }.frame(maxWidth: .infinity)
                     .padding(.vertical, 20)
@@ -69,6 +85,10 @@ struct ContentView: View {
         } message: {
             Text("Your final score is: \(userScore). \n Wanna play again?")
         }
+    }
+    
+    func getFlagAccessibilityLabel(_ country: String) -> String {
+        labels[country] ?? "Unknown Flag"
     }
     
     func flagTapped(_ number: Int) {
